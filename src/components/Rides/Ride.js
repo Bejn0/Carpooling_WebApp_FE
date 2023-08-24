@@ -27,16 +27,11 @@ const Ride = ({ ride, rides, setRides }) => {
     axios
       .post(
         `${api}/reservations`,
-        { ride_id: ride.id, space },
-        {
-          headers: {
-            Authorization: `Bearer ${currentUser.token}`,
-          },
-        }
+        { ride_id: ride.ride_id + "", space: space + "", space_left:(ride.space-space) + "", user_id: currentUser.id + "" }
       )
       .then((response) => {
         let ridesG = [...rides];
-        let rideToEdit = ridesG.find((r) => r.id === ride.id);
+        let rideToEdit = ridesG.find((r) => r.ride_id === ride.ride_id);
         rideToEdit.space -= space;
         setRides(ridesG);
         setShow(false);
@@ -63,9 +58,9 @@ const Ride = ({ ride, rides, setRides }) => {
       <Col className="mb-4" lg="4">
         <Card>
           <Card.Body>
-            <Card.Title>{ride.user_id}</Card.Title>
+            <Card.Title>{ride.first_name}</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">
-              {ride.user_id}
+              {ride.email}
             </Card.Subtitle>
             <Card.Text as="div">
               <p className="m-0">

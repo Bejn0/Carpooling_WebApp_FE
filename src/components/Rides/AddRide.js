@@ -29,10 +29,7 @@ const AddRide = () => {
             end_location: endLocation,
             date,
             space,
-        }, {
-            headers: {
-                Authorization: `Bearer ${currentUser.token}`
-            }
+            user_id: currentUser.id + "",
         }).then(response => {
             console.log(response.data)
             navigate('/profile'); // Redirect

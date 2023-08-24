@@ -13,13 +13,12 @@ const ReservationsTable = ({ reservations, setReservations }) => {
     const { currentUser } = useContext(CurrentUserContext)
 
     function deleteReservation(reservation) {
-        axios.delete(`${api}/reservations/${reservation.id}`, {
-            headers: {
-                Authorization: `Bearer ${currentUser.token}`
-            }
-        }).then(response => {
+        axios.post(`${api}/reservations/${reservation.reservation_id}`,
+         { space: (reservation.space + reservation.space_2) + "", 
+            ride_id: reservation.ride_id,
+    }).then(response => {
             let reservationsG = [...reservations];
-            let index = reservationsG.findIndex((r) => r.id === reservation.id);
+            let index = reservationsG.findIndex((r) => r.id === reservation.reservation_id);
             reservationsG.splice(index, 1);
             setReservations(reservationsG);
         }).catch((error) => {
@@ -46,10 +45,10 @@ const ReservationsTable = ({ reservations, setReservations }) => {
                             <tbody>
                                 {reservations.map((reservation, index) => (
                                     <tr key={index}>
-                                        <td>{reservation.ride.start_location}</td>
-                                        <td>{reservation.ride.end_location}</td>
-                                        <td>{reservation.ride.date}</td>
-                                        <td>{reservation.ride.space}</td>
+                                        <td>{reservation.start_location}</td>
+                                        <td>{reservation.end_location}</td>
+                                        <td>{reservation.date}</td>
+                                        <td>{reservation.space_2}</td>
                                         <td>{reservation.space}</td>
                                         <td><Button onClick={() => deleteReservation(reservation)} variant="danger">Delete</Button></td>
                                     </tr>

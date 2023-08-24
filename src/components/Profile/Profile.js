@@ -17,21 +17,15 @@ const Profile = () => {
     const { api } = useContext(ApiContext);
 
     useEffect(() => {
-        axios.get(`${api}/users/${currentUser.id}/reservations`, {
-            headers: {
-                'Authorization': `Bearer ${currentUser.token}`
-            }
-        }).then(response => {
-            setReservations(response.data.reservations);
+        axios.get(`${api}/reservations/${currentUser.id}`).then(response => {
+            console.log(response.data);
+            setReservations(response.data.body);
         }).catch((error) => {
             console.log(error);
         });
-        axios.get(`${api}/users/${currentUser.id}/rides`, {
-            headers: {
-                'Authorization': `Bearer ${currentUser.token}`
-            }
-        }).then(response => {
-            setRides(response.data.rides);
+        axios.get(`${api}/rides/${currentUser.id}`).then(response => {
+            console.log(response.data);
+            setRides(response.data.body);
         }).catch((error) => {
             console.log(error);
         });
@@ -49,7 +43,7 @@ const Profile = () => {
                                 <Card.Body>
                                     <div className="d-flex flex-column align-items-center text-center">
                                         <div className="mt-3">
-                                            <h4>{`${currentUser.first_name} ${currentUser.last_name}`}</h4>
+                                            <h4>{`${currentUser.name} ${currentUser.last_name}`}</h4>
                                             <p className="text-muted font-size-sm">{currentUser.email}</p>
                                         </div>
                                     </div>

@@ -40,10 +40,6 @@ function App() {
               path="/add-ride"
               element={currentUser ? <AddRide /> : <Navigate to="/login" />}
             />
-            <Route
-              path="/edit-ride/:id"
-              element={currentUser ? <EditRide /> : <Navigate to="/login" />}
-            />
           </Routes>
         </BrowserRouter>
       </ApiContext.Provider>

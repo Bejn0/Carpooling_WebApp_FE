@@ -13,13 +13,9 @@ const RidesTable = ({ rides, setRides }) => {
     const { currentUser } = useContext(CurrentUserContext)
 
     function deleteRide(ride) {
-        axios.delete(`${api}/rides/${ride.id}`, {
-            headers: {
-                Authorization: `Bearer ${currentUser.token}`
-            }
-        }).then(response => {
+        axios.delete(`${api}/rides/${ride.ride_id}`).then(response => {
             let ridesG = [...rides];
-            let index = ridesG.findIndex((r) => r.id === ride.id);
+            let index = ridesG.findIndex((r) => r.id === ride.ride_id);
             ridesG.splice(index, 1);
             setRides(ridesG);
         }).catch((error) => {
@@ -50,7 +46,6 @@ const RidesTable = ({ rides, setRides }) => {
                                         <td>{ride.end_location}</td>
                                         <td>{ride.date}</td>
                                         <td>{ride.space}</td>
-                                        <td><Button as={Link} to={`/edit-ride/${ride.id}`} variant="warning">Edit</Button></td>
                                         <td><Button onClick={() => deleteRide(ride)} variant="danger">Delete</Button></td>
                                     </tr>
                                 ))}
