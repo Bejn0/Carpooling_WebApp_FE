@@ -8,6 +8,17 @@ import axios from "axios";
 import { ApiContext, CurrentUserContext } from "../../App";
 import { Link } from "react-router-dom";
 
+function timestampConverter(timestamp){
+  const rawTimestamp = Date.parse(timestamp);
+  const convertedTimestamp = new Date(rawTimestamp);
+  const year = convertedTimestamp.getFullYear();
+  const month = (convertedTimestamp.getMonth() + 1).toString();
+  const date = convertedTimestamp.getDate().toString();
+  const hour = convertedTimestamp.getHours();
+  const minute = convertedTimestamp.getMinutes().toString();
+  return date.padStart(2, "0") + "-" + month.padStart(2, "0") + "-" + year + " " + hour + ":" + minute.padStart(2, "0");
+}
+
 const Ride = ({ ride, rides, setRides }) => {
   // Modal
   const [show, setShow] = useState(false);
@@ -72,7 +83,7 @@ const Ride = ({ ride, rides, setRides }) => {
                 {ride.end_location}
               </p>
               <p className="m-0">
-                <span className="fw-bold">Date: </span> {ride.dateTime}
+                <span className="fw-bold">Date: </span> {timestampConverter(ride.datetime)}
               </p>
               <p className="m-0">
                 <span className="fw-bold">Space available:</span> {ride.space}
